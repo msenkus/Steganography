@@ -3,8 +3,14 @@
 A simple class to test hiding an image inside of another image.
 
 ## Build
-Run `mvn clean verify`
-There are issues with the unit test failing due to non matching results. run `mvn clean verify -DskipTests` to get around this
+To build, run:
+```
+$ mvn clean verify
+```
+There are issues with the unit test failing due to non matching results. To get around this, run:
+```
+$ mvn clean verify -DskipTests
+```
 
 ## Usage
 ```
