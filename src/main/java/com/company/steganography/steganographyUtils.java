@@ -1,16 +1,15 @@
-package com.company;
+package com.company.steganography;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.attribute.FileTime;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AlgoClass {
+public class steganographyUtils {
 
    /*
         Parts of the resizeImage method was used in the main method and was attempted to break out into this class.
@@ -19,16 +18,8 @@ public class AlgoClass {
    */
 
    public static BufferedImage resizeImage(BufferedImage base){
-       BufferedImage newImage = new BufferedImage(300,300,BufferedImage.TYPE_INT_RGB);
-       SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-       String name = dateFormat.format(new Date());
-        newImage = base.getSubimage(((int)(base.getWidth() * .5) - 150), ((int)(base.getHeight() * .5) - 150), 300 , 300);
-        try{
-            ImageIO.write(newImage, "jpg", new File(name));
-        }catch(IOException e) {
-            System.out.println(e);
-        }
-        return newImage;
+       BufferedImage newImage = base.getSubimage(((int)(base.getWidth() * .5) - 150), ((int)(base.getHeight() * .5) - 150), 300 , 300);
+       return newImage;
     }
 
     //convert an integer to a 8 element array to store a "byte"
@@ -99,7 +90,7 @@ public class AlgoClass {
         return output;
     }
 
-    //Never used. Alternative methode used instead. Kept for backup or case use.
+    //Never used. Alternative methods used instead. Kept for backup or case use.
     public static int[] getLeastSigBits(int[] input){
         int[] output = new int[4];
         for (int i = 4; i < input.length; i++) {
@@ -124,7 +115,7 @@ public class AlgoClass {
         output = (input<<4) & 255;
         return output;
     }
-    //builds on the process of comining to bits.
+    //builds on the process of incoming to bits.
     public static int hideInt(int baseInt, int hideInt){
         //msb stands for "Most significant bit"
         int[] baseArryByte;
@@ -145,8 +136,8 @@ public class AlgoClass {
         return output;
     }
 
-    //loops to travel from pixel to pixel-> ectracting the RGB and combining the ints.
-    public static BufferedImage hideTheImage(BufferedImage baseImage, BufferedImage hideImage){
+    //loops to travel from pixel to pixel-> extracting the RGB and combining the integers.
+    public static BufferedImage hideImage(BufferedImage baseImage, BufferedImage hideImage){
         BufferedImage encryptedImage = baseImage;
         for (int i = 0; i < baseImage.getWidth(); i++) {
             for(int j = 0; j < hideImage.getHeight(); j++){
@@ -173,7 +164,7 @@ public class AlgoClass {
         return encryptedImage;
     }
     //extracts the hidden image and returning the image.
-    public static BufferedImage decryptImage(BufferedImage EncryptedImage){
+    public static BufferedImage unHideImage(BufferedImage EncryptedImage){
         BufferedImage hiddenImage = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
 
         for (int i = 0; i < EncryptedImage.getWidth(); i++) {
@@ -192,6 +183,14 @@ public class AlgoClass {
             }
         }
         return hiddenImage;
+    }
+
+    public static void writeImageToFile(BufferedImage img, String filePath) {
+        try {
+            ImageIO.write(img, "jpg", new File(filePath));
+        } catch(IOException e) {
+            System.out.println(e);
+        }
     }
 
 }
