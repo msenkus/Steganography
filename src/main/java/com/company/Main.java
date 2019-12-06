@@ -9,11 +9,13 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class Main {
+public class main {
 
     public static void main(String[] args) {
-        if(!(args[0] == "-e" && args.length == 4) || !(args[0] == "-d" && args.length == 3))
+        if(args.length == 0 || !(args[0] == "-e" && args.length == 4) || !(args[0] == "-d" && args.length == 3)) {
             printHelp();
+            return;
+        }
 
         if(args[0] == "-e") {
             steganograph myNefariousExercise = new steganograph(args[1], args[2]);
@@ -27,9 +29,10 @@ public class Main {
     }
 
     private static void printHelp() {
-        System.out.println("steganography: the practice of concealing a file, message, image, or video within another file, message, image, or video.\n");
-        System.out.println("Usage: \n");
-        System.out.println("steganography -e <path to cover image> <path to image to hide> <out path for resulting image> \n");
-        System.out.println("steganography -d <path to encrypted image> <out path for hidden image> \n");
+        System.out.println("Usage: ");
+        System.out.println("\tsteganography -e <path to cover image> <path to image to hide> <out path for resulting image>");
+        System.out.println("\tsteganography -d <path to encrypted image> <out path for hidden image>");
+        System.out.println(" ");
+        System.out.println("steganography: the practice of concealing a file, message, image, or video within another file, message, image, or video.");
     }
 }
